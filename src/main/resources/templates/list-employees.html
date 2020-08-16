@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <title>Employee directory Page</title>
 </head>
 <body>
-<h3> Employee directory</h3>
+<div class="container">
+    <h3> Employee directory</h3>
+    <hr>
 
-<hr>
+    <table class="table table-borderded table-striped">
+        <!--  Build HTML based on employees -->
+        <thead class="thead-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tempEmployee : ${employeeList}">
+            <td th:text="${tempEmployee.firstName}"></td>
+            <td th:text="${tempEmployee.lastName}"></td>
+            <td th:text="${tempEmployee.email}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<table border="1">
-    <!--  Build HTML based on employees -->
-    <thead>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="tempEmployee : ${employeeList}">
-        <td th:text="${tempEmployee.firstName}"></td>
-        <td th:text="${tempEmployee.lastName}"></td>
-        <td th:text="${tempEmployee.email}"></td>
-    </tr>
-    </tbody>
-</table>
-
+</div>
 </body>
 </html>
