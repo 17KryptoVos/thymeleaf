@@ -1,6 +1,9 @@
 package com.example.thymeleaf.controller;
 
-import com.example.thymeleaf.model.Employee;
+import com.example.thymeleaf.entity.Employee;
+import com.example.thymeleaf.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,26 +17,19 @@ import java.util.List;
 @RequestMapping("employees")
 public class EmployeeController {
 
-    private List<Employee> employeeList;
+    private EmployeeService employeeService;
 
-    @PostConstruct
-    private void loadData(){
-        // Create employees
-        Employee emp1 = new Employee(1, "Peter", "Vaughn", "peter@blabla.com");
-        Employee emp2 = new Employee(1, "Juan", "Vaughn", "juan@blabla.com");
-        Employee emp3 = new Employee(1, "Marie", "Vaughn", "marie@blabla.com");
-
-        employeeList = new ArrayList<>();
-
-        employeeList.add(emp1);
-        employeeList.add(emp2);
-        employeeList.add(emp3);
+    @Autowired
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/list")
     public String listEmployees(Model theModel) {
 
-
+        // get employees from db (via service etc.)
+        List<Employee> employeeList = employeeService.findAll();
+        // add to the model
         theModel.addAttribute("employeeList", employeeList);
         return "list-employees";
     }
